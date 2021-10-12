@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/CraftCutsTestApiProjectapi/apis/CraftCutsTestApiProject",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/craftcutsproject/databases/CraftCutsDb",
+      "type": "mssql.azure",
+      "connectionId": "SqlConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
