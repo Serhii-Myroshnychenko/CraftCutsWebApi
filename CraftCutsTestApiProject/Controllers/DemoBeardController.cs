@@ -27,10 +27,23 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                //log error
+                
                 return StatusCode(500, ex.Message);
             }
 
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDemoBeard(int id)
+        {
+            try
+            {
+                var beard = await _demoBeardRepository.GetDemoBeard(id);
+                return Ok(beard);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
