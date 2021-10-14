@@ -9,34 +9,34 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Repositories
 {
-    public class DemoBeardRepository : IDemoBeardRepository
+    public class HairCutRepository : IHairCutRepository
     {
         private readonly DapperContext _context;
-        public DemoBeardRepository(DapperContext context)
+        public HairCutRepository(DapperContext context)
         {
             _context = context;
         }
 
-        public async Task<DemoBeard> GetDemoBeard(int id)
+        public async Task<HairCut> GetHairCut(int id)
         {
-            var query = "SELECT * FROM DemoBeard WHERE beard_id = @id";
+            var query = "SELECT * FROM HairCut WHERE haircut_id = @id";
             using (var connection = _context.CreateConnection())
             {
-                var beard = await connection.QuerySingleOrDefaultAsync<DemoBeard>(query, new { id });
-                return beard;
+                var haircut = await connection.QuerySingleOrDefaultAsync<HairCut>(query, new { id });
+                return haircut;
 
             }
         }
 
-        public async Task<IEnumerable<DemoBeard>> GetDemoBeards()
+        public async Task<IEnumerable<HairCut>> GetHairCuts()
         {
-            var query = "SELECT * FROM DemoBeard";
+            var query = "Select * FROM HairCut";
             using (var connection = _context.CreateConnection())
             {
-                var customers = await connection.QueryAsync<DemoBeard>(query);
-                return customers.ToList();
+                var hairCuts = await connection.QueryAsync<HairCut>(query);
+                return hairCuts.ToList();
             }
         }
-
+        
     }
 }

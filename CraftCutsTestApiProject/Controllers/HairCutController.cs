@@ -10,40 +10,39 @@ namespace CraftCutsTestApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DemoBeardController : ControllerBase
+    public class HairCutController : ControllerBase
     {
-        private readonly IDemoBeardRepository _demoBeardRepository;
-        public DemoBeardController(IDemoBeardRepository demoBeardRepository)
+        private readonly IHairCutRepository _hairCutRepository;
+        public HairCutController(IHairCutRepository hairCutRepository)
         {
-            _demoBeardRepository = demoBeardRepository;
+            _hairCutRepository = hairCutRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDemoBeards()
+        public async Task<IActionResult> GetHairCuts()
         {
             try
             {
-                var beards = await _demoBeardRepository.GetDemoBeards();
-                return Ok(beards);
+                var hairCuts = await _hairCutRepository.GetHairCuts();
+                return Ok(hairCuts);
             }
             catch (Exception ex)
             {
-                
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetHairCut(int id)
+        {
+            try
+            {
+                var hairCut = await _hairCutRepository.GetHairCut(id);
+                return Ok(hairCut);
+            }
+            catch(Exception ex)
+            {
                 return StatusCode(500, ex.Message);
             }
 
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDemoBeard(int id)
-        {
-            try
-            {
-                var beard = await _demoBeardRepository.GetDemoBeard(id);
-                return Ok(beard);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
         }
     }
 }

@@ -33,6 +33,7 @@ namespace CraftCutsTestApiProject
             services.AddScoped<ICustomerRepository,CustomerRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IDemoBeardRepository, DemoBeardRepository>();
+            services.AddScoped<IHairCutRepository, HairCutRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
