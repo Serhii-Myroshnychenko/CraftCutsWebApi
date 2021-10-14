@@ -1,11 +1,14 @@
-﻿using System;
+﻿using CraftCutsTestApiProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Contracts
 {
-    interface IHairCutRepository
+    public interface IHairCutRepository
     {
+        public Task<IEnumerable<HairCut>> GetHairCuts();
+        public Task<HairCut> GetHairCut(int id);
     }
 }
