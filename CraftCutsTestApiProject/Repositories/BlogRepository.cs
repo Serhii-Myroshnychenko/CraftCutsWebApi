@@ -4,6 +4,7 @@ using CraftCutsTestApiProject.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,14 +18,30 @@ namespace CraftCutsTestApiProject.Repositories
             _context = context;
         }
 
-        public Task CreateBlog(Blog blog)
+        public async Task CreateBlog(Blog blog)
         {
-            throw new NotImplementedException();
+            var query = "INSERT INTO Blog (time_step,title,blog_content,picture_url) values (@time_step,@title,@blog_content,@picture_url);";
+            var parameters = new DynamicParameters();
+            parameters.Add("time_step", blog.time_step, DbType.DateTime);
+            parameters.Add("title", blog.title, DbType.String);
+            parameters.Add("blog_content", blog.blog_content, DbType.String);
+            parameters.Add("picture_url", blog.picture_url, DbType.String);
+            
+            using(var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query,parameters);
+            }
+
         }
 
-        public Task DeleteBlog(int id)
+        public async Task DeleteBlog(int id)
         {
-            throw new NotImplementedException();
+
+            var query = "DELETE FROM Blog WHERE blog_id = @id";
+            using(var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { id});
+            }
         }
 
         public async Task<Blog> GetBlog(int id)
@@ -47,9 +64,19 @@ namespace CraftCutsTestApiProject.Repositories
             }
         }
 
-        public Task UpdateBlog(int id, Blog blog)
+        public async Task UpdateBlog(int id, Blog blog)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE Blog SET time_step = @time_step, title = @title, blog_content = @blog_content, picture_url = @picture_url WHERE blog_id = @id";
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id, DbType.Int32);
+            parameters.Add("time_step", blog.time_step, DbType.DateTime);
+            parameters.Add("title", blog.title, DbType.String);
+            parameters.Add("blog_content", blog.blog_content, DbType.String);
+            parameters.Add("picture_url", blog.picture_url, DbType.String);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
     }
 }
