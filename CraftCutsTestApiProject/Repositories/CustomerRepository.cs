@@ -77,6 +77,15 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, new { id });
             }
         }
-        
+
+        public async Task<Customer> AuthorizationCustomer(string email,string password)
+        {
+            var query = "SELECT * FROM Customer WHERE password = @password AND email = @email";
+            using(var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, new {email , password}  );
+                return cust;
+            }
+        }
     }
 }
