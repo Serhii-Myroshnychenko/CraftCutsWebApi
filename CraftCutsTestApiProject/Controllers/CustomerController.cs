@@ -142,7 +142,7 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return Ok("Что-то пошло не так");
             }
         }
     }
