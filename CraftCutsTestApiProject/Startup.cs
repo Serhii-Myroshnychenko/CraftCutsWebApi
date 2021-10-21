@@ -31,6 +31,10 @@ namespace CraftCutsTestApiProject
             services.AddSingleton<DapperContext>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<ICustomerRepository,CustomerRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IDemoBeardRepository, DemoBeardRepository>();
+            services.AddScoped<IHairCutRepository, HairCutRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
