@@ -15,6 +15,8 @@ namespace CraftCutsTestApiProject.Contracts
         public Task DeleteCustomer(int id);
 
         public Task<Customer> AuthorizationCustomer(string email,string password);
-        
+        public Task Registration(string name,string email, string password, string phone, DateTime birthday);
+
+
     }
 }
