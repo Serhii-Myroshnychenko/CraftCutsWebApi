@@ -36,7 +36,6 @@ namespace CraftCutsTestApiProject.Repositories
             {
                 var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query,new { id });
                 return cust;
-
             }
         }
         public async Task CreateCustomer(Customer customer)
@@ -87,5 +86,6 @@ namespace CraftCutsTestApiProject.Repositories
                 return cust;
             }
         }
+        
     }
 }
