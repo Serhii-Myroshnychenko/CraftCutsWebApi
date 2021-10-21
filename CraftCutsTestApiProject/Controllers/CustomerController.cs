@@ -112,7 +112,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
-        [HttpPost("{Auth}")]
+        [HttpPost("Auth")]
         public async Task<IActionResult> AuthorizationCustomer(string email, string password)
         {
             try
@@ -126,6 +126,19 @@ namespace CraftCutsTestApiProject.Controllers
                 {
                     return Ok(cust);
                 }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registration(string name, string password, string email, string phone, DateTime birthday)
+        {
+            try
+            {
+                await _customerRepository.Registration(name,password,email,phone,birthday);
+                return Ok("Успешно");
             }
             catch (Exception ex)
             {
