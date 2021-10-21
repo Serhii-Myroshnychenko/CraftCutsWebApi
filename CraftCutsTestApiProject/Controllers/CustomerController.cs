@@ -112,7 +112,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
-        [HttpPost("{Authorization}")]
+        [HttpPost("{Auth}")]
         public async Task<IActionResult> AuthorizationCustomer(string email, string password)
         {
             try
