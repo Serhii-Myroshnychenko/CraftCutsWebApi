@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Controllers
@@ -112,7 +113,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
-        [HttpPost("Auth")]
+        [HttpPost("{Auth}")]
         public async Task<IActionResult> AuthorizationCustomer(string email, string password)
         {
             try
@@ -142,7 +143,14 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                return Ok("Что-то пошло не так");
+                return new ObjectResult(
+                    new
+                    {
+                        code = 500,
+                        message = "A server error occurred.",
+                        detailedMessage = ex.Message
+                    }
+                    );
             }
         }
     }
