@@ -130,7 +130,12 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return new BadRequestObjectResult(
+                    new
+                    {
+                        message = ex.Message
+                    }
+                    );
             }
         }
         [HttpPost("Registration")]
@@ -146,7 +151,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return new BadRequestObjectResult(
                     new
                     {
-                        message = ex.Message
+                        message  = ex.Message
                     }
                     );
             }
