@@ -143,7 +143,7 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                return new ObjectResult(
+                return new BadRequestObjectResult(
                     new
                     {
                         code = 500,
