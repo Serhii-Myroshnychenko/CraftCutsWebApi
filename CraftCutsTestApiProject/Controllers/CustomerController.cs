@@ -146,9 +146,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return new BadRequestObjectResult(
                     new
                     {
-                        code = 500,
-                        message = "A server error occurred.",
-                        detailedMessage = ex.Message
+                        message = ex.Message
                     }
                     );
             }
