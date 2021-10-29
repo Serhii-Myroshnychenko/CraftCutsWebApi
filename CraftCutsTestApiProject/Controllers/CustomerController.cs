@@ -1,7 +1,9 @@
 ﻿using CraftCutsTestApiProject.Contracts;
 using CraftCutsTestApiProject.Models;
+using CraftCutsTestApiProject.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,11 @@ namespace CraftCutsTestApiProject.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerRepository _customerRepository;
-        public CustomerController(ICustomerRepository customerRepository)
+        private IHubContext<InformHub, IHubClient> _informHub;
+        public CustomerController(ICustomerRepository customerRepository, IHubContext<InformHub, IHubClient> informHub)
         {
             _customerRepository = customerRepository;
+            _informHub = informHub;
         }
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
@@ -145,5 +149,6 @@ namespace CraftCutsTestApiProject.Controllers
                 return Ok("Что-то пошло не так");
             }
         }
+        
     }
 }
