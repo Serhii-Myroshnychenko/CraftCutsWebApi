@@ -37,6 +37,7 @@ namespace CraftCutsTestApiProject.Controllers
             }
 
         }
+        //Bcrypt
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetCustomer(int id)

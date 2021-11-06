@@ -8,7 +8,7 @@ namespace CraftCutsTestApiProject.Models
     public class DemoBeard
     {
         public int beard_id { get; set; }
-        public string image_name { get; set; }
+        public byte[] image_data { get; set; }
         public string? displayed_name { get; set; }
     }
 }

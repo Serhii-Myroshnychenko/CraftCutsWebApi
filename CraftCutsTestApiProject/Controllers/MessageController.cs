@@ -38,24 +38,6 @@ namespace CraftCutsTestApiProject.Controllers
             return isSend; 
         }
 
-        [HttpPost("{id}")]
-        public string Mes(string id)
-        {
-            string mes = "dsdad";
-            string isSend = "";
-            try
-            {
-                _informHub.Clients.User(id).InformClient(mes);
-                isSend = "Success";
-
-            }
-            catch (Exception ex)
-            {
-                isSend = ex.ToString();
-            }
-            return isSend;
-            
-            
-        }
+        
     }
 }
