@@ -1,8 +1,10 @@
 ﻿using CraftCutsTestApiProject.Contracts;
+using CraftCutsTestApiProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +45,27 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message);
             }
 
+        }
+        [HttpPost("Create")]
+        public async Task<IActionResult> AddHairCut([FromForm]HairCutConstructor hairCutConstructor)
+        {
+            try
+            {
+                byte[] imageData = null;
+                if (hairCutConstructor.Data!=null)
+                {
+                    using(var binaryReader = new BinaryReader(hairCutConstructor.Data.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)hairCutConstructor.Data.Length);
+                    }
+                }
+                await _hairCutRepository.AddHairCut(imageData, hairCutConstructor.Name);
+                return Ok("Успешно");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
