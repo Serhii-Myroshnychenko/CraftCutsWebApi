@@ -5,7 +5,13 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Models
 {
-    public class Service
-    {
-    }
+    
+        public class Service
+        {
+            public int service_id { get; set; }
+            public string name { get; set; }
+            public decimal price { get; set; }
+            public string description { get; set; }
+        }
+    
 }

@@ -8,11 +8,11 @@ namespace CraftCutsTestApiProject.Contracts
 {
     public interface IBookingRepository
     {
-        public Task CreateBooking(int barber_id, int customer_id, decimal price, DateTime date, bool is_paid, int promocode_id);
-        public Task<int> GetBarberIdByName(string name);
-        public Task<int> GetCustomerIdByName(string name);
-        public Task<int> GetPromocodeIdByName(string name);
-        public Task<decimal> GetPriceByName(string name);
-        public Task<int> GetServiceIdByName(string name);
+        public Task CreateBooking(int barber_id, int customer_id, decimal price, DateTime date, bool is_paid, int? promocode_id);
+        public int GetBarberIdByName(string name);
+        public int GetCustomerIdByName(string name);
+        public int GetPromocodeIdByName(string name);
+        public decimal GetPriceByName(string name);
+        public int GetServiceIdByName(string name);
     }
 }

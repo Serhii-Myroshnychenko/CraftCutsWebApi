@@ -17,7 +17,7 @@ namespace CraftCutsTestApiProject.Repositories
         {
             _dapperContext = dapperContext;
         }
-        public async Task CreateBooking(int barber_id,int customer_id,decimal price,DateTime date,bool is_paid,int promocode_id)
+        public async Task CreateBooking(int barber_id,int customer_id,decimal price,DateTime date,bool is_paid,int? promocode_id)
         {
             var query = "INSERT INTO Booking (barber_id,customer_id,price,date,is_paid,promocode_id) VALUES (@barber_id,@customer_id,@price,@date,@is_paid,@promocode_id)";
             var parameters = new DynamicParameters();
@@ -34,59 +34,79 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, parameters);
             }
         }
-        public async Task<int> GetBarberIdByName(string name)
+        public int GetBarberIdByName(string name)
         {
-            var query = "Select barber_id from Barber where name = @name";
+            var query = "Select * from Barber where name = @name";
             
             using (var connection = _dapperContext.CreateConnection())
             {
-                var id = await connection.QuerySingleOrDefaultAsync(query, new { name });
-                return id;
+                var barber =  connection.QuerySingleOrDefault<Barber>(query, new { name });
+                if (barber != null)
+                {
+                    return barber.barber_id;
+                }
 
+                return 0;
             }
         }
-        public async Task<int> GetCustomerIdByName(string email)
+        
+        public int GetCustomerIdByName(string email)
         {
-            var query = "Select customer_id from Customer where email = @email";
+            var query = "Select * from Customer where email = @email";
 
             using (var connection = _dapperContext.CreateConnection())
             {
-                var id = await connection.QuerySingleOrDefaultAsync(query, new { email });
-                return id;
+                var cust =  connection.QuerySingleOrDefault<Customer>(query, new { email });
+                if (cust != null)
+                {
+                    return cust.customer_id;
+                }
 
+                return 0;
             }
         }
-        public async Task<int> GetPromocodeIdByName(string name)
+        public int GetPromocodeIdByName(string name)
         {
-            var query = "Select promocode_id from Promocode where name = @name";
+            var query = "Select * from Promocode where name = @name";
 
             using (var connection = _dapperContext.CreateConnection())
             {
-                var id = await connection.QuerySingleOrDefaultAsync(query, new { name });
-                return id;
-
+                var id =  connection.QuerySingleOrDefault<Promocode>(query, new { name });
+                if (id != null)
+                {
+                    return id.promocode_id;
+                }
+                return 0;
             }
         }
-        public async Task<int> GetServiceIdByName(string name)
+        public int GetServiceIdByName(string name)
         {
-            var query = "Select service_id from Service where name = @name";
+            var query = "Select * from Service where name = @name";
 
             using (var connection = _dapperContext.CreateConnection())
             {
-                var id = await connection.QuerySingleOrDefaultAsync(query, new { name });
-                return id;
+                var id = connection.QuerySingleOrDefault<Service>(query, new { name });
+                if (id != null)
+                {
+                    return id.service_id;
+                }
+                return 0;
 
             }
         }
-        public async Task<decimal> GetPriceByName(string name)
+        public decimal GetPriceByName(string name)
         {
-            var query = "Select price from Service where name = @name";
+            var query = "Select * from Service where name = @name";
 
             using (var connection = _dapperContext.CreateConnection())
             {
-                var price = await connection.QuerySingleOrDefaultAsync(query, new { name });
-                return price;
+                var service =  connection.QuerySingleOrDefault<Service>(query, new { name });
+                if(service != null)
+                {
+                    return service.price;
+                }
 
+                return 0;
             }
         }
         

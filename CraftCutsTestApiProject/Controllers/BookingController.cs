@@ -25,18 +25,30 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                var barber_id = _bookingRepository.GetBarberIdByName(bookingConstructor.BarberName);
-                var customer_id = _bookingRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
-                var promocode_id = _bookingRepository.GetPromocodeIdByName(bookingConstructor.PromocodeName);
-                var price = _bookingRepository.GetPriceByName(bookingConstructor.ServiceName);
-                var service_id = _bookingRepository.GetServiceIdByName(bookingConstructor.ServiceName);
+                int barber_id = _bookingRepository.GetBarberIdByName(bookingConstructor.BarberName);
+
+                int customer_id = _bookingRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
+                
+                
+                int promocode_id = _bookingRepository.GetPromocodeIdByName(bookingConstructor.PromocodeName);
+
+                decimal price = _bookingRepository.GetPriceByName(bookingConstructor.ServiceName);
+                int service_id = _bookingRepository.GetServiceIdByName(bookingConstructor.ServiceName);
+                
                 bool is_paid = false;
-                if(barber_id != null && customer_id != null && price != null)
+                if(barber_id != 0 && customer_id != 0 && price != 0)
                 {
-                    
+
+                    if (promocode_id == 0)
+                    {
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.date, is_paid, null);
+                    }
+                    else
+                    {
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.date, is_paid, promocode_id);
+                    }
                     
 
-                    await _bookingRepository.CreateBooking(Convert.ToInt32(barber_id),Convert.ToInt32(customer_id),Convert.ToDecimal(price),bookingConstructor.date,is_paid,Convert.ToInt32(promocode_id));
                     return Ok("Ok");
 
                 }
