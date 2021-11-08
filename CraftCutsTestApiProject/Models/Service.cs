@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Models
 {
-    public class BookingList
+    public class Service
     {
-        public int booking_id { get; set; }
-        public int service_id { get; set; }
     }
 }
