@@ -46,6 +46,7 @@ namespace CraftCutsTestApiProject.Controllers
             try
             {
                 var customer = await _customerRepository.GetCustomer(id);
+                
                 if (customer == null)
                 {
                     return NotFound();

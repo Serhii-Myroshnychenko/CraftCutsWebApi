@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Models
 {
-
-    public class Service
+    public class Promocode
     {
-        public int service_id { get; set; }
+        public int promocode_id { get; set; }
         public string name { get; set; }
-        public decimal price { get; set; }
-        public string description { get; set; }
+        public int sale_percent { get; set; }
+        public DateTime time { get; set; }
     }
 }

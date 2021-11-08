@@ -36,6 +36,7 @@ namespace CraftCutsTestApiProject.Repositories
             {
                 var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query,new { id });
                 return cust;
+                
 
             }
         }
