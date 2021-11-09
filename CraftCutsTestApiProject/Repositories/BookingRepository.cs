@@ -109,7 +109,50 @@ namespace CraftCutsTestApiProject.Repositories
                 return 0;
             }
         }
-        
-        
+        public async Task<IEnumerable<Booking>> GetBookings()
+        {
+            var query = "SELECT * FROM Booking";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var bookings = await connection.QueryAsync<Booking>(query);
+                return bookings.ToList();
+            }
+        }
+        public async Task<Booking> GetBooking(int id)
+        {
+            var query = "SELECT * FROM Booking Where booking_id = @id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var booking = await connection.QuerySingleOrDefaultAsync<Booking>(query, new { id });
+                return booking;
+            }
+        }
+        public async Task UpdateBooking(int id, Booking booking)
+        {
+            var query = "UPDATE Booking SET barber_id = @barber_id, customer_id = @customer_id, price = @price, date = @date, is_paid = @is_paid,promocode_id=@promocode_id WHERE booking_id = @id";
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id, DbType.Int64);
+            parameters.Add("barber_id", booking.barber_id, DbType.Int64);
+            parameters.Add("customer_id",booking.customer_id, DbType.Int64);
+            parameters.Add("price",booking.price, DbType.Decimal);
+            parameters.Add("date",booking.date, DbType.DateTime);
+            parameters.Add("is_paid",booking.is_paid, DbType.Boolean);
+            parameters.Add("promocode_id",booking.promocode_id, DbType.Int64);
+
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
+        public async Task DeleteBooking(int id)
+        {
+            var query = "DELETE FROM Booking WHERE booking_id = @id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { id });
+            }
+        }
+
     }
 }
