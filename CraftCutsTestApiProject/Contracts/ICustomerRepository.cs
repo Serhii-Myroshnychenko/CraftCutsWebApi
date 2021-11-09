@@ -16,6 +16,7 @@ namespace CraftCutsTestApiProject.Contracts
 
         public Task<Customer> AuthorizationCustomer(string email,string password);
         public Task Registration(string name,string email, string password, string phone, DateTime birthday);
+        public Task<Customer> GetCustomerByParams(string name, string password, string email, string phone, DateTime birthday);
 
 
     }
