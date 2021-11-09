@@ -103,5 +103,20 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query,parameters);
             }
         }
+        public async Task<Customer> GetCustomerByParams(string name, string password, string email, string phone, DateTime birthday)
+        {
+            string query = "Select * from Customer where name = @name and password = @password and email = @email and phone = @phone and birthday = @birthday";
+            var parameters = new DynamicParameters();
+            parameters.Add("name", name, DbType.String);
+            parameters.Add("password", password, DbType.String);
+            parameters.Add("email", email, DbType.String);
+            parameters.Add("phone", phone, DbType.String);
+            parameters.Add("birthday", birthday, DbType.DateTime);
+            using (var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QueryFirstOrDefaultAsync<Customer>(query, parameters);
+                return cust;
+            }
+        }
     }
 }

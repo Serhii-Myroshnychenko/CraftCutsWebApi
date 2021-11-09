@@ -150,7 +150,8 @@ namespace CraftCutsTestApiProject.Controllers
             try
             {
                 await _customerRepository.Registration(name,password,email,phone,birthday);
-                return Ok("Успешно");
+                var cust = await _customerRepository.GetCustomerByParams(name, password, email, phone, birthday);
+                return Ok(cust);
             }
             catch (Exception ex)
             {
