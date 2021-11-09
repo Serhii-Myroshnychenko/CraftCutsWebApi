@@ -60,5 +60,75 @@ namespace CraftCutsTestApiProject.Controllers
             }
 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetBookings()
+        {
+            try
+            {
+                var bookings = await _bookingRepository.GetBookings();
+                return Ok(bookings);
+            }
+            catch(Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBooking(int id)
+        {
+            try
+            {
+                var booking = await _bookingRepository.GetBooking(id);
+                return Ok(booking);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBooking(int id,Booking booking)
+        {
+            try
+            {
+                var book = await _bookingRepository.GetBooking(id);
+                if (book == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    await _bookingRepository.UpdateBooking(id, booking);
+                    return Ok("Ok");
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            try
+            {
+                var booking = await _bookingRepository.GetBooking(id);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    await _bookingRepository.DeleteBooking(id);
+                    return Ok("Ok");
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

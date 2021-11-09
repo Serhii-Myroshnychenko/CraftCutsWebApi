@@ -14,5 +14,9 @@ namespace CraftCutsTestApiProject.Contracts
         public int GetPromocodeIdByName(string name);
         public decimal GetPriceByName(string name);
         public int GetServiceIdByName(string name);
+        public Task<IEnumerable<Booking>> GetBookings();
+        public Task<Booking> GetBooking(int id);
+        public Task UpdateBooking(int id, Booking booking);
+        public Task DeleteBooking(int id);
     }
 }
