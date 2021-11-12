@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Controllers
@@ -112,7 +113,7 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
-        [HttpPost("{Authorization}")]
+        [HttpPost("{Auth}")]
         public async Task<IActionResult> AuthorizationCustomer(string email, string password)
         {
             try
@@ -129,7 +130,30 @@ namespace CraftCutsTestApiProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return new BadRequestObjectResult(
+                    new
+                    {
+                        message = ex.Message
+                    }
+                    );
+            }
+        }
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registration(string name, string password, string email, string phone, DateTime birthday)
+        {
+            try
+            {
+                await _customerRepository.Registration(name,password,email,phone,birthday);
+                return Ok("Успешно");
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(
+                    new
+                    {
+                        message  = ex.Message
+                    }
+                    );
             }
         }
     }

@@ -86,6 +86,24 @@ namespace CraftCutsTestApiProject.Repositories
                 return cust;
             }
         }
+<<<<<<< HEAD
         
+=======
+
+        public async Task Registration(string name, string password, string email,  string phone, DateTime birthday)
+        {
+            var query = "INSERT INTO Customer (name,password,email,phone,birthday) VALUES (@name,@password,@email,@phone,@birthday)";
+            var parameters = new DynamicParameters();
+            parameters.Add("name", name, DbType.String);
+            parameters.Add("password", password, DbType.String);
+            parameters.Add("email", email, DbType.String);
+            parameters.Add("phone", phone, DbType.String);
+            parameters.Add("birthday", birthday, DbType.DateTime);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query,parameters);
+            }
+        }
+>>>>>>> master
     }
 }
