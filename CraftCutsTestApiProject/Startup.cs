@@ -54,7 +54,8 @@ namespace CraftCutsTestApiProject
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:64169"));
+       
+                    .WithOrigins("http://localhost:64169", "http://localhost:3000"));
             });
             services.AddSignalR();
 
@@ -80,7 +81,7 @@ namespace CraftCutsTestApiProject
                 
             });
 
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
