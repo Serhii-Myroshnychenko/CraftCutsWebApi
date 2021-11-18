@@ -1,6 +1,7 @@
 ﻿using CraftCutsTestApiProject.Contracts;
 using CraftCutsTestApiProject.Models;
 using CraftCutsTestApiProject.Repositories;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -120,7 +122,9 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpPost("Auth")]
+
         public async Task<IActionResult> AuthorizationCustomer([FromForm] AuthConstructor authConstructor)
+
         {
             try
             {
@@ -145,15 +149,15 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpPost("Registration")]
-        public async Task<IActionResult> Registration(string name, string password, string email, string phone, DateTime birthday)
+        public async Task<IActionResult> Registration([FromForm]Registration registration)
         {
             try
             {
-                var customer = await _customerRepository.IsItAnExistingMail(email);
+                var customer = await _customerRepository.IsItAnExistingMail(registration.email);
                 if(customer == null)
                 {
-                    await _customerRepository.Registration(name, password, email, phone, birthday);
-                    var cust = await _customerRepository.GetCustomerByParams(name, password, email, phone, birthday);
+                    await _customerRepository.Registration(registration.name,registration.password,registration.email,registration.phone,registration.birthday);
+                    var cust = await _customerRepository.GetCustomerByParams(registration.name,registration.password,registration.email,registration.phone,registration.birthday);
                     return Ok(cust);
                 }
                 else
@@ -161,6 +165,7 @@ namespace CraftCutsTestApiProject.Controllers
                     return BadRequest("Пользователь с такой почтой уже существует");
                 }
                 
+
             }
             catch (Exception ex)
             {

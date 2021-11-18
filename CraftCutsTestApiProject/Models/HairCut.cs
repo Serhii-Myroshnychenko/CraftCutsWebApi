@@ -9,7 +9,7 @@ namespace CraftCutsTestApiProject.Models
     {
         public int haircut_id { get; set; }
         public byte[] image_data { get; set; }
-        public string? dispalyed_name { get; set; }
+        public string? displayed_name { get; set; }
 
     }
 }
