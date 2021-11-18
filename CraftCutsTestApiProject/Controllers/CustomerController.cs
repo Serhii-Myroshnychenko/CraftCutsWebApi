@@ -119,12 +119,12 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
-        [HttpPost("{Auth}")]
-        public async Task<IActionResult> AuthorizationCustomer(string email, string password)
+        [HttpPost("Auth")]
+        public async Task<IActionResult> AuthorizationCustomer([FromForm] AuthConstructor authConstructor)
         {
             try
             {
-                var cust = await _customerRepository.AuthorizationCustomer(email,password);
+                var cust = await _customerRepository.AuthorizationCustomer(authConstructor);
                 if (cust == null)
                 {
                     return NotFound();
@@ -149,9 +149,18 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                await _customerRepository.Registration(name,password,email,phone,birthday);
-                var cust = await _customerRepository.GetCustomerByParams(name, password, email, phone, birthday);
-                return Ok(cust);
+                var customer = await _customerRepository.IsItAnExistingMail(email);
+                if(customer == null)
+                {
+                    await _customerRepository.Registration(name, password, email, phone, birthday);
+                    var cust = await _customerRepository.GetCustomerByParams(name, password, email, phone, birthday);
+                    return Ok(cust);
+                }
+                else
+                {
+                    return BadRequest("Пользователь с такой почтой уже существует");
+                }
+                
             }
             catch (Exception ex)
             {
