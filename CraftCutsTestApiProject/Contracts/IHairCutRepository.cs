@@ -10,6 +10,6 @@ namespace CraftCutsTestApiProject.Contracts
     {
         public Task<IEnumerable<HairCut>> GetHairCuts();
         public Task<HairCut> GetHairCut(int id);
-        public Task AddHairCut(byte[] image_data,string displayed_name);
+        public Task AddHairCut(string image_name,string displayed_name);
     }
 }

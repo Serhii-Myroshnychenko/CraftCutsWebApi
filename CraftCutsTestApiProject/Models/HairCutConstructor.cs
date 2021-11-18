@@ -10,8 +10,8 @@ namespace CraftCutsTestApiProject.Models
     public class HairCutConstructor
     {
         [Required]
-        public IFormFile Data { get; set; }
+        public string Image_name { get; set; }
 
-        public string Name { get; set; }
+        public string? Displayed_name { get; set; }
     }
 }

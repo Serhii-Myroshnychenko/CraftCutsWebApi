@@ -51,15 +51,8 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                byte[] imageData = null;
-                if (hairCutConstructor.Data!=null)
-                {
-                    using(var binaryReader = new BinaryReader(hairCutConstructor.Data.OpenReadStream()))
-                    {
-                        imageData = binaryReader.ReadBytes((int)hairCutConstructor.Data.Length);
-                    }
-                }
-                await _hairCutRepository.AddHairCut(imageData, hairCutConstructor.Name);
+                
+                await _hairCutRepository.AddHairCut(hairCutConstructor.Image_name, hairCutConstructor.Displayed_name);
                 return Ok("Успешно");
             }
             catch(Exception ex)

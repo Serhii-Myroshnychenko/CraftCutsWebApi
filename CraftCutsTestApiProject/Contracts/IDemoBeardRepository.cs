@@ -10,6 +10,7 @@ namespace CraftCutsTestApiProject.Contracts
     {
         public Task<IEnumerable<DemoBeard>> GetDemoBeards();
         public Task<DemoBeard> GetDemoBeard(int id);
+        public Task CreateDemoBeard(string image_name, string displayed_name);
 
     }
 }
