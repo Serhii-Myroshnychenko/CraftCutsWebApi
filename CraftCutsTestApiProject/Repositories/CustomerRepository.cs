@@ -79,12 +79,15 @@ namespace CraftCutsTestApiProject.Repositories
             }
         }
 
-        public async Task<Customer> AuthorizationCustomer(string email,string password)
+        public async Task<Customer> AuthorizationCustomer(AuthConstructor authConstructor)
         {
             var query = "SELECT * FROM Customer WHERE password = @password AND email = @email";
-            using(var connection = _context.CreateConnection())
+            var parameters = new DynamicParameters();
+            parameters.Add("password", authConstructor.Password, DbType.String);
+            parameters.Add("email", authConstructor.Email, DbType.String);
+            using (var connection = _context.CreateConnection())
             {
-                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, new {email , password}  );
+                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, parameters  );
                 return cust;
             }
         }
@@ -115,6 +118,15 @@ namespace CraftCutsTestApiProject.Repositories
             using (var connection = _context.CreateConnection())
             {
                 var cust = await connection.QueryFirstOrDefaultAsync<Customer>(query, parameters);
+                return cust;
+            }
+        }
+        public async Task<Customer> IsItAnExistingMail(string email)
+        {
+            string query = "Select * from Customer where  email = @email ";
+            using (var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QueryFirstOrDefaultAsync<Customer>(query ,new { email});
                 return cust;
             }
         }
