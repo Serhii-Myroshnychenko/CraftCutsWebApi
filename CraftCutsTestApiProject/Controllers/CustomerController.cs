@@ -123,7 +123,7 @@ namespace CraftCutsTestApiProject.Controllers
         }
         [HttpPost("Auth")]
 
-        public async Task<IActionResult> AuthorizationCustomer([FromForm] AuthConstructor authConstructor)
+        public async Task<IActionResult> AuthorizationCustomer([FromBody] AuthConstructor authConstructor)
 
         {
             try
