@@ -132,7 +132,7 @@ namespace CraftCutsTestApiProject.Controllers
                 var cust = await _customerRepository.AuthorizationCustomer(authConstructor);
                 if (cust == null)
                 {
-                    return NotFound("Не олег");
+                    return NotFound("Иван");
                 }
                 else
                 {
