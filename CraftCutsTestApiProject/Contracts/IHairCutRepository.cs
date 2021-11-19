@@ -10,5 +10,6 @@ namespace CraftCutsTestApiProject.Contracts
     {
         public Task<IEnumerable<HairCut>> GetHairCuts();
         public Task<HairCut> GetHairCut(int id);
+        public Task AddHairCut(string image_name,string displayed_name);
     }
 }

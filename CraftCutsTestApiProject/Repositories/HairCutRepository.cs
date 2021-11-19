@@ -4,6 +4,7 @@ using CraftCutsTestApiProject.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +38,17 @@ namespace CraftCutsTestApiProject.Repositories
                 return hairCuts.ToList();
             }
         }
+        public async Task AddHairCut(string image_name, string displayed_name)
+        {
+            var query = "INSERT into HairCut (image_name,displayed_name) values (@image_name,@displayed_name)";
+            var parameters = new DynamicParameters();
+            parameters.Add("image_name", image_name, DbType.String);
+            parameters.Add("displayed_name", displayed_name, DbType.String);
         
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
     }
 }

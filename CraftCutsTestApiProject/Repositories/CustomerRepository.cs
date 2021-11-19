@@ -36,6 +36,11 @@ namespace CraftCutsTestApiProject.Repositories
             {
                 var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query,new { id });
                 return cust;
+<<<<<<< HEAD
+=======
+                
+
+>>>>>>> master
             }
         }
         public async Task CreateCustomer(Customer customer)
@@ -77,12 +82,15 @@ namespace CraftCutsTestApiProject.Repositories
             }
         }
 
-        public async Task<Customer> AuthorizationCustomer(string email,string password)
+        public async Task<Customer> AuthorizationCustomer(AuthConstructor authConstructor)
         {
             var query = "SELECT * FROM Customer WHERE password = @password AND email = @email";
-            using(var connection = _context.CreateConnection())
+            var parameters = new DynamicParameters();
+            parameters.Add("password", authConstructor.Password, DbType.String);
+            parameters.Add("email", authConstructor.Email, DbType.String);
+            using (var connection = _context.CreateConnection())
             {
-                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, new {email , password}  );
+                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, parameters  );
                 return cust;
             }
         }
@@ -102,6 +110,33 @@ namespace CraftCutsTestApiProject.Repositories
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query,parameters);
+            }
+        }
+<<<<<<< HEAD
+>>>>>>> master
+=======
+        public async Task<Customer> GetCustomerByParams(string name, string password, string email, string phone, DateTime birthday)
+        {
+            string query = "Select * from Customer where name = @name and password = @password and email = @email and phone = @phone and birthday = @birthday";
+            var parameters = new DynamicParameters();
+            parameters.Add("name", name, DbType.String);
+            parameters.Add("password", password, DbType.String);
+            parameters.Add("email", email, DbType.String);
+            parameters.Add("phone", phone, DbType.String);
+            parameters.Add("birthday", birthday, DbType.DateTime);
+            using (var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QueryFirstOrDefaultAsync<Customer>(query, parameters);
+                return cust;
+            }
+        }
+        public async Task<Customer> IsItAnExistingMail(string email)
+        {
+            string query = "Select * from Customer where  email = @email ";
+            using (var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QueryFirstOrDefaultAsync<Customer>(query ,new { email});
+                return cust;
             }
         }
 >>>>>>> master
