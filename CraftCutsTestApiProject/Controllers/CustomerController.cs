@@ -113,15 +113,22 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
+<<<<<<< Updated upstream
         [HttpPost("{Auth}")]
         public async Task<IActionResult> AuthorizationCustomer(string email, string password)
+=======
+        [HttpPost("Auth")]
+
+        public async Task<IActionResult> AuthorizationCustomer([FromBody] AuthConstructor authConstructor)
+
+>>>>>>> Stashed changes
         {
             try
             {
                 var cust = await _customerRepository.AuthorizationCustomer(email,password);
                 if (cust == null)
                 {
-                    return NotFound();
+                    return NotFound("олег");
                 }
                 else
                 {
