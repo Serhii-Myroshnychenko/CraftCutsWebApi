@@ -36,11 +36,6 @@ namespace CraftCutsTestApiProject.Repositories
             {
                 var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query,new { id });
                 return cust;
-<<<<<<< HEAD
-=======
-                
-
->>>>>>> master
             }
         }
         public async Task CreateCustomer(Customer customer)
@@ -94,9 +89,6 @@ namespace CraftCutsTestApiProject.Repositories
                 return cust;
             }
         }
-<<<<<<< HEAD
-        
-=======
 
         public async Task Registration(string name, string password, string email,  string phone, DateTime birthday)
         {
@@ -112,9 +104,6 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query,parameters);
             }
         }
-<<<<<<< HEAD
->>>>>>> master
-=======
         public async Task<Customer> GetCustomerByParams(string name, string password, string email, string phone, DateTime birthday)
         {
             string query = "Select * from Customer where name = @name and password = @password and email = @email and phone = @phone and birthday = @birthday";
@@ -139,6 +128,5 @@ namespace CraftCutsTestApiProject.Repositories
                 return cust;
             }
         }
->>>>>>> master
     }
 }
