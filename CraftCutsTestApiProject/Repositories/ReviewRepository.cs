@@ -60,5 +60,15 @@ namespace CraftCutsTestApiProject.Repositories
                 return reviews.ToList();
             }
         }
+
+        public async Task<IEnumerable<ReviewSelector>> GetReviewSelectors()
+        {
+            var query = "Select Customer.name, Review.feedback,Review.stars from Customer Join Review ON Customer.customer_id = Review.customer_id";
+            using(var connection = _dapperContext.CreateConnection())
+            {
+                var rev = await connection.QueryAsync<ReviewSelector>(query);
+                return rev.ToList();
+            }
+        }
     }
 }

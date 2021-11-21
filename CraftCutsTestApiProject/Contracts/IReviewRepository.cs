@@ -9,6 +9,7 @@ namespace CraftCutsTestApiProject.Contracts
     public interface IReviewRepository
     {
         public Task<IEnumerable<Review>> GetReviews();
+        public Task<IEnumerable<ReviewSelector>> GetReviewSelectors();
         public Task<Review> GetReview(int id);
 
         public Task CreateReview(ReviewConstructor reviewConstructor);

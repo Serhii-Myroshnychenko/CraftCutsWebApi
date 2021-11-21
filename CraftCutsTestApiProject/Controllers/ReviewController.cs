@@ -19,6 +19,19 @@ namespace CraftCutsTestApiProject.Controllers
         {
             _reviewRepository = reviewRepository;
         }
+        [HttpGet("Statistic")]
+        public async Task<IActionResult> GetStatistic()
+        {
+            try
+            {
+                var reviews = await _reviewRepository.GetReviewSelectors();
+                return Ok(reviews);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> GetReviews()
         {
