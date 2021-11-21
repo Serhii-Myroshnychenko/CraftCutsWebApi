@@ -121,6 +121,26 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message); 
             }
         }
+        [HttpPost("AuthMobile")]
+        public async Task<IActionResult> AuthorizationCustomerByParams(string email, string password)
+        {
+            try
+            {
+                var cust = await _customerRepository.AuthorizationCustomerByParams(email, password);
+                if (cust == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(cust);
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpPost("Auth")]
 

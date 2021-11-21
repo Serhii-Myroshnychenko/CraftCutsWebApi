@@ -128,5 +128,18 @@ namespace CraftCutsTestApiProject.Repositories
                 return cust;
             }
         }
+
+        public async Task<Customer> AuthorizationCustomerByParams(string email, string password)
+        {
+            var query = "SELECT * FROM Customer WHERE password = @password AND email = @email";
+            var parameters = new DynamicParameters();
+            parameters.Add("password", password, DbType.String);
+            parameters.Add("email", email, DbType.String);
+            using (var connection = _context.CreateConnection())
+            {
+                var cust = await connection.QuerySingleOrDefaultAsync<Customer>(query, parameters);
+                return cust;
+            }
+        }
     }
 }
