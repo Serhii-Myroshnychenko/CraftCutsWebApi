@@ -31,6 +31,27 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetService(int id)
+        {
+            try
+            {
+                var service = await _serviceRepository.GetService(id);
+                if (service == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+
+                    return Ok(service);
+                }
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreateService(Service service)
         {

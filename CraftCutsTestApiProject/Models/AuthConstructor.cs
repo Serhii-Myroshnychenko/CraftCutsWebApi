@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace CraftCutsTestApiProject.Models
 {
-
-    public class Service
+    public class AuthConstructor
     {
-        public int service_id { get; set; }
         [Required]
-        public string name { get; set; }
+        public string Email { get; set; }
         [Required]
-        public decimal price { get; set; }
-        public string description { get; set; }
+        public string Password { get; set; }
+
     }
 }

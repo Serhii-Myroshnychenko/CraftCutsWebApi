@@ -1,4 +1,5 @@
 ﻿using CraftCutsTestApiProject.Contracts;
+using CraftCutsTestApiProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -39,6 +40,20 @@ namespace CraftCutsTestApiProject.Controllers
             {
                 var beard = await _demoBeardRepository.GetDemoBeard(id);
                 return Ok(beard);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost("Create")]
+        public async Task<IActionResult> AddHairCut([FromForm] DemoBeardConstructor demoBeardConstructor)
+        {
+            try
+            {
+
+                await _demoBeardRepository.CreateDemoBeard(demoBeardConstructor.Image_name, demoBeardConstructor.Displayed_name);
+                return Ok("Успешно");
             }
             catch (Exception ex)
             {

@@ -14,7 +14,10 @@ namespace CraftCutsTestApiProject.Contracts
         public Task UpdateCustomer(int id, Customer customer);
         public Task DeleteCustomer(int id);
 
-        public Task<Customer> AuthorizationCustomer(string email,string password);
-        
+        public Task<Customer> AuthorizationCustomer(AuthConstructor authConstructor);
+        public Task Registration(string name,string email, string password, string phone, DateTime birthday);
+        public Task<Customer> GetCustomerByParams(string name, string password, string email, string phone, DateTime birthday);
+
+        public Task<Customer> IsItAnExistingMail(string email);
     }
 }

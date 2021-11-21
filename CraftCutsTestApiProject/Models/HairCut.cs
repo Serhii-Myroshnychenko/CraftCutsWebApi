@@ -7,9 +7,9 @@ namespace CraftCutsTestApiProject.Models
 {
     public class HairCut
     {
-        public int haircut_id { get; set; }
-        public string image_name { get; set; }
-        public string? dispalyed_name { get; set; }
+        public int Haircut_id { get; set; }
+        public string Image_name { get; set; }
+        public string? Displayed_name { get; set; }
 
     }
 }
