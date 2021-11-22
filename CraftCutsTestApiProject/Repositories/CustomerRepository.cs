@@ -42,11 +42,11 @@ namespace CraftCutsTestApiProject.Repositories
         {
             var query = "INSERT INTO Customer (name,password,email,phone,birthday) VALUES (@name,@password,@email,@phone,@birthday)";
             var parameters = new DynamicParameters();
-            parameters.Add("name", customer.name, DbType.String);
-            parameters.Add("password", customer.password, DbType.String);
-            parameters.Add("email", customer.email, DbType.String);
-            parameters.Add("phone", customer.phone, DbType.String);
-            parameters.Add("birthday", customer.birthday, DbType.DateTime);
+            parameters.Add("name", customer.Name, DbType.String);
+            parameters.Add("password", customer.Password, DbType.String);
+            parameters.Add("email", customer.Email, DbType.String);
+            parameters.Add("phone", customer.Phone, DbType.String);
+            parameters.Add("birthday", customer.Birthday, DbType.DateTime);
 
             using (var connection = _context.CreateConnection())
             {
@@ -58,11 +58,11 @@ namespace CraftCutsTestApiProject.Repositories
             var query = "UPDATE Customer SET name = @name, password = @password, email = @email, phone = @phone, birthday = @birthday WHERE customer_id = @id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id, DbType.Int32);
-            parameters.Add("name", customer.name, DbType.String);
-            parameters.Add("password", customer.password, DbType.String);
-            parameters.Add("email", customer.email, DbType.String);
-            parameters.Add("phone", customer.phone, DbType.String);
-            parameters.Add("birthday", customer.birthday, DbType.DateTime);
+            parameters.Add("name", customer.Name, DbType.String);
+            parameters.Add("password", customer.Password, DbType.String);
+            parameters.Add("email", customer.Email, DbType.String);
+            parameters.Add("phone", customer.Phone, DbType.String);
+            parameters.Add("birthday", customer.Birthday, DbType.DateTime);
             using(var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);

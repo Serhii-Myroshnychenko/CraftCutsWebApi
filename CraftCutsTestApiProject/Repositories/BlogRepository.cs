@@ -22,10 +22,10 @@ namespace CraftCutsTestApiProject.Repositories
         {
             var query = "INSERT INTO Blog (time_step,title,blog_content,picture_url) values (@time_step,@title,@blog_content,@picture_url);";
             var parameters = new DynamicParameters();
-            parameters.Add("time_step", blog.time_step, DbType.DateTime);
-            parameters.Add("title", blog.title, DbType.String);
-            parameters.Add("blog_content", blog.blog_content, DbType.String);
-            parameters.Add("picture_url", blog.picture_url, DbType.String);
+            parameters.Add("time_step", blog.Time_step, DbType.DateTime);
+            parameters.Add("title", blog.Title, DbType.String);
+            parameters.Add("blog_content", blog.Blog_content, DbType.String);
+            parameters.Add("picture_url", blog.Picture_url, DbType.String);
             
             using(var connection = _context.CreateConnection())
             {
@@ -69,10 +69,10 @@ namespace CraftCutsTestApiProject.Repositories
             var query = "UPDATE Blog SET time_step = @time_step, title = @title, blog_content = @blog_content, picture_url = @picture_url WHERE blog_id = @id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id, DbType.Int32);
-            parameters.Add("time_step", blog.time_step, DbType.DateTime);
-            parameters.Add("title", blog.title, DbType.String);
-            parameters.Add("blog_content", blog.blog_content, DbType.String);
-            parameters.Add("picture_url", blog.picture_url, DbType.String);
+            parameters.Add("time_step", blog.Time_step, DbType.DateTime);
+            parameters.Add("title", blog.Title, DbType.String);
+            parameters.Add("blog_content", blog.Blog_content, DbType.String);
+            parameters.Add("picture_url", blog.Picture_url, DbType.String);
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);

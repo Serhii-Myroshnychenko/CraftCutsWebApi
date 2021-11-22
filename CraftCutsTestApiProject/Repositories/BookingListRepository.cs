@@ -22,8 +22,8 @@ namespace CraftCutsTestApiProject.Repositories
         {
             var query = "INSERT INTO Customer (booking_id,service_id) VALUES (@booking_id,@service_id)";
             var parameters = new DynamicParameters();
-            parameters.Add("booking_id", bookingList.booking_id, DbType.Int64);
-            parameters.Add("service_id", bookingList.service_id, DbType.Int64);
+            parameters.Add("booking_id", bookingList.Booking_id, DbType.Int64);
+            parameters.Add("service_id", bookingList.Service_id, DbType.Int64);
             
 
             using (var connection = _dapperContext.CreateConnection())

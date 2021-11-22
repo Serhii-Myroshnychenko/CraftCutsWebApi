@@ -7,13 +7,13 @@ namespace CraftCutsTestApiProject.Models
 {
     public class Booking
     {
-        public int booking_id { get; set; }
-        public int barber_id { get; set; }
-        public int customer_id { get; set; }
-        public decimal price { get; set; }
-        public DateTime date { get; set; }
-        public bool is_paid { get; set; }
-        public int? promocode_id { get; set; }
+        public int Booking_id { get; set; }
+        public int Barber_id { get; set; }
+        public int Customer_id { get; set; }
+        public decimal Price { get; set; }
+        public DateTime Date { get; set; }
+        public bool Is_paid { get; set; }
+        public int? Promocode_id { get; set; }
 
     }
 }

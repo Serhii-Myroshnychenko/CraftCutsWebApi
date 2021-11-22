@@ -174,11 +174,11 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                var customer = await _customerRepository.IsItAnExistingMail(registration.email);
+                var customer = await _customerRepository.IsItAnExistingMail(registration.Email);
                 if(customer == null)
                 {
-                    await _customerRepository.Registration(registration.name,registration.password,registration.email,registration.phone,registration.birthday);
-                    var cust = await _customerRepository.GetCustomerByParams(registration.name,registration.password,registration.email,registration.phone,registration.birthday);
+                    await _customerRepository.Registration(registration.Name,registration.Password,registration.Email,registration.Phone,registration.Birthday);
+                    var cust = await _customerRepository.GetCustomerByParams(registration.Name,registration.Password,registration.Email,registration.Phone,registration.Birthday);
                     return Ok(cust);
                 }
                 else
@@ -203,11 +203,11 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                var customer = await _customerRepository.IsItAnExistingMail(registration.email);
+                var customer = await _customerRepository.IsItAnExistingMail(registration.Email);
                 if (customer == null)
                 {
-                    await _customerRepository.Registration(registration.name, registration.password, registration.email, registration.phone, registration.birthday);
-                    var cust = await _customerRepository.GetCustomerByParams(registration.name, registration.password, registration.email, registration.phone, registration.birthday);
+                    await _customerRepository.Registration(registration.Name, registration.Password, registration.Email, registration.Phone, registration.Birthday);
+                    var cust = await _customerRepository.GetCustomerByParams(registration.Name, registration.Password, registration.Email, registration.Phone, registration.Birthday);
                     return Ok(cust);
                 }
                 else

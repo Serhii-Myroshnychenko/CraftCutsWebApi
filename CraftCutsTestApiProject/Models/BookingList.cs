@@ -7,7 +7,7 @@ namespace CraftCutsTestApiProject.Models
 {
     public class BookingList
     {
-        public int booking_id { get; set; }
-        public int service_id { get; set; }
+        public int Booking_id { get; set; }
+        public int Service_id { get; set; }
     }
 }

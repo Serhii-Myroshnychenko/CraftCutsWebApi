@@ -7,11 +7,11 @@ namespace CraftCutsTestApiProject.Models
 {
     public class Blog
     {
-        public int blog_id { get; set; }
-        public DateTime time_step { get; set; }
-        public string title { get; set; }
-        public string? blog_content { get; set; }
-        public string picture_url { get; set; }
+        public int Blog_id { get; set; }
+        public DateTime Time_step { get; set; }
+        public string Title { get; set; }
+        public string? Blog_content { get; set; }
+        public string Picture_url { get; set; }
 
 
     }

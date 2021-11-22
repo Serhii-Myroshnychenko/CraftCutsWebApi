@@ -41,9 +41,9 @@ namespace CraftCutsTestApiProject.Repositories
         {
             var query = "INSERT INTO Service (name,price,description) VALUES (@name,@price,@description)";
             var parameters = new DynamicParameters();
-            parameters.Add("name", service.name, DbType.String);
-            parameters.Add("price", service.price, DbType.Decimal);
-            parameters.Add("description", service.description, DbType.String);
+            parameters.Add("name", service.Name, DbType.String);
+            parameters.Add("price", service.Price, DbType.Decimal);
+            parameters.Add("description", service.Description, DbType.String);
 
             using (var connection = _context.CreateConnection())
             {
@@ -55,9 +55,9 @@ namespace CraftCutsTestApiProject.Repositories
             var query = "UPDATE Service SET name = @name, price = @price, description = @description WHERE service_id = @id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id, DbType.Int32);
-            parameters.Add("name", service.name, DbType.String);
-            parameters.Add("price", service.price, DbType.Decimal);
-            parameters.Add("description", service.description, DbType.String);
+            parameters.Add("name", service.Name, DbType.String);
+            parameters.Add("price", service.Price, DbType.Decimal);
+            parameters.Add("description", service.Description, DbType.String);
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);

@@ -9,11 +9,11 @@ namespace CraftCutsTestApiProject.Models
 
     public class Service
     {
-        public int service_id { get; set; }
+        public int Service_id { get; set; }
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
         [Required]
-        public decimal price { get; set; }
-        public string description { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
     }
 }

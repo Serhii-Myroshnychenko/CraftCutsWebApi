@@ -22,9 +22,9 @@ namespace CraftCutsTestApiProject
         {
             var query = "INSERT INTO Admin (name,login,password) VALUES (@name,@login,@password)";
             var parameters = new DynamicParameters();
-            parameters.Add("name", adm.name, DbType.String);
-            parameters.Add("login", adm.login, DbType.String);
-            parameters.Add("password", adm.password, DbType.String);
+            parameters.Add("name", adm.Name, DbType.String);
+            parameters.Add("login", adm.Login, DbType.String);
+            parameters.Add("password", adm.Password, DbType.String);
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);

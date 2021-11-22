@@ -43,7 +43,7 @@ namespace CraftCutsTestApiProject.Repositories
                 var barber =  connection.QuerySingleOrDefault<Barber>(query, new { name });
                 if (barber != null)
                 {
-                    return barber.barber_id;
+                    return barber.Barber_id;
                 }
 
                 return 0;
@@ -59,7 +59,7 @@ namespace CraftCutsTestApiProject.Repositories
                 var cust =  connection.QuerySingleOrDefault<Customer>(query, new { email });
                 if (cust != null)
                 {
-                    return cust.customer_id;
+                    return cust.Customer_id;
                 }
 
                 return 0;
@@ -74,7 +74,7 @@ namespace CraftCutsTestApiProject.Repositories
                 var id =  connection.QuerySingleOrDefault<Promocode>(query, new { name });
                 if (id != null)
                 {
-                    return id.promocode_id;
+                    return id.Promocode_id;
                 }
                 return 0;
             }
@@ -88,7 +88,7 @@ namespace CraftCutsTestApiProject.Repositories
                 var id = connection.QuerySingleOrDefault<Service>(query, new { name });
                 if (id != null)
                 {
-                    return id.service_id;
+                    return id.Service_id;
                 }
                 return 0;
 
@@ -103,7 +103,7 @@ namespace CraftCutsTestApiProject.Repositories
                 var service =  connection.QuerySingleOrDefault<Service>(query, new { name });
                 if(service != null)
                 {
-                    return service.price;
+                    return service.Price;
                 }
 
                 return 0;
@@ -132,12 +132,12 @@ namespace CraftCutsTestApiProject.Repositories
             var query = "UPDATE Booking SET barber_id = @barber_id, customer_id = @customer_id, price = @price, date = @date, is_paid = @is_paid,promocode_id=@promocode_id WHERE booking_id = @id";
             var parameters = new DynamicParameters();
             parameters.Add("id", id, DbType.Int64);
-            parameters.Add("barber_id", booking.barber_id, DbType.Int64);
-            parameters.Add("customer_id",booking.customer_id, DbType.Int64);
-            parameters.Add("price",booking.price, DbType.Decimal);
-            parameters.Add("date",booking.date, DbType.DateTime);
-            parameters.Add("is_paid",booking.is_paid, DbType.Boolean);
-            parameters.Add("promocode_id",booking.promocode_id, DbType.Int64);
+            parameters.Add("barber_id", booking.Barber_id, DbType.Int64);
+            parameters.Add("customer_id",booking.Customer_id, DbType.Int64);
+            parameters.Add("price",booking.Price, DbType.Decimal);
+            parameters.Add("date",booking.Date, DbType.DateTime);
+            parameters.Add("is_paid",booking.Is_paid, DbType.Boolean);
+            parameters.Add("promocode_id",booking.Promocode_id, DbType.Int64);
 
 
             using (var connection = _dapperContext.CreateConnection())

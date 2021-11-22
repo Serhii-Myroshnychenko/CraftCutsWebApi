@@ -8,23 +8,23 @@ namespace CraftCutsTestApiProject.Models
 {
     public class Customer
     {
-        public int customer_id { get; set; }
+        public int Customer_id { get; set; }
 
         [RegularExpression(@"^[А-Я]+[а-яА-Я\s]*$")] //должны использоваться только буквы; первая буква должна быть прописной; Пробелы разрешены, а цифры и специальные символы — нет.
 
         [StringLength(70, MinimumLength = 2)]
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
         [StringLength(150, MinimumLength = 5)]
 
-        public string password { get; set; }
+        public string Password { get; set; }
         [RegularExpression(@"^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$")]
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
         [RegularExpression(@"(^+\d{1,2})?(((\d{3}))|(-?\d{3}-)|(\d{3}))((\d{3}-\d{4})|(\d{3}-\d\d-\d\d)|(\d{7})|(\d{3}-\d-\d{3}))")]
 
-        public string phone { get; set; }
-        public DateTime birthday { get; set; }
+        public string Phone { get; set; }
+        public DateTime Birthday { get; set; }
 
     }
 }
