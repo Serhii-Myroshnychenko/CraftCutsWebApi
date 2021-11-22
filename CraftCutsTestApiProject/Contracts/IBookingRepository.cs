@@ -18,5 +18,9 @@ namespace CraftCutsTestApiProject.Contracts
         public Task<Booking> GetBooking(int id);
         public Task UpdateBooking(int id, Booking booking);
         public Task DeleteBooking(int id);
+
+
+        public Task<IEnumerable<BookingCustomerList>> GetBookingsById(int id);
+
     }
 }

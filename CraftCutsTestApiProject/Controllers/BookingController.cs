@@ -130,5 +130,19 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("List/{id}")]
+        public async Task<IActionResult> GetBookingsById(int id)
+        {
+            try
+            {
+                var bookings = await _bookingRepository.GetBookingsById(id);
+                return Ok(bookings);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

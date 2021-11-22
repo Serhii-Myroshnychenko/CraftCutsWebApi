@@ -153,6 +153,15 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, new { id });
             }
         }
+        public async Task<IEnumerable<BookingCustomerList>> GetBookingsById(int id)
+        {
+            var query = "Select Service.name,Booking.price,Booking.date from Booking Join BookingList On Booking.booking_id = BookingList.booking_id Join Service On BookingList.service_id = Service.service_id Join Customer On Booking.customer_id = Customer.customer_id Where Booking.customer_id = @id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var bookings = await connection.QueryAsync<BookingCustomerList>(query, new { id});
+                return bookings.ToList();
+            }
+        }
 
     }
 }
