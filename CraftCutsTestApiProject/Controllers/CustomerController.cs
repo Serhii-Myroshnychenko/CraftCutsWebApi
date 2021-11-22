@@ -198,6 +198,35 @@ namespace CraftCutsTestApiProject.Controllers
                     );
             }
         }
-        
+        [HttpPost("RegistrationWeb")]
+        public async Task<IActionResult> RegistrationWeb([FromBody] Registration registration)
+        {
+            try
+            {
+                var customer = await _customerRepository.IsItAnExistingMail(registration.email);
+                if (customer == null)
+                {
+                    await _customerRepository.Registration(registration.name, registration.password, registration.email, registration.phone, registration.birthday);
+                    var cust = await _customerRepository.GetCustomerByParams(registration.name, registration.password, registration.email, registration.phone, registration.birthday);
+                    return Ok(cust);
+                }
+                else
+                {
+                    return BadRequest("Пользователь с такой почтой уже существует");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(
+                    new
+                    {
+                        message = ex.Message
+                    }
+                    );
+            }
+        }
+
     }
 }
