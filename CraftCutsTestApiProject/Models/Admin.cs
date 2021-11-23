@@ -8,14 +8,15 @@ namespace CraftCutsTestApiProject.Models
 {
     public class Admin
     {
-        public int Admin_id { get; set; }
+        public int Admin_id { get; }
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")] //должны использоваться только буквы; первая буква должна быть прописной; Пробелы разрешены, а цифры и специальные символы — нет.
         [StringLength(70, MinimumLength = 2)]
-        [Required]
+        [Required(ErrorMessage = "Введите имя")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Введите логин")]
         public string Login { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Введите пароль")]
         public string Password { get; set; }
+        
     }
 }

@@ -34,81 +34,7 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, parameters);
             }
         }
-        public int GetBarberIdByName(string name)
-        {
-            var query = "Select * from Barber where name = @name";
-            
-            using (var connection = _dapperContext.CreateConnection())
-            {
-                var barber =  connection.QuerySingleOrDefault<Barber>(query, new { name });
-                if (barber != null)
-                {
-                    return barber.Barber_id;
-                }
-
-                return 0;
-            }
-        }
         
-        public int GetCustomerIdByName(string email)
-        {
-            var query = "Select * from Customer where email = @email";
-
-            using (var connection = _dapperContext.CreateConnection())
-            {
-                var cust =  connection.QuerySingleOrDefault<Customer>(query, new { email });
-                if (cust != null)
-                {
-                    return cust.Customer_id;
-                }
-
-                return 0;
-            }
-        }
-        public int GetPromocodeIdByName(string name)
-        {
-            var query = "Select * from Promocode where name = @name";
-
-            using (var connection = _dapperContext.CreateConnection())
-            {
-                var id =  connection.QuerySingleOrDefault<Promocode>(query, new { name });
-                if (id != null)
-                {
-                    return id.Promocode_id;
-                }
-                return 0;
-            }
-        }
-        public int GetServiceIdByName(string name)
-        {
-            var query = "Select * from Service where name = @name";
-
-            using (var connection = _dapperContext.CreateConnection())
-            {
-                var id = connection.QuerySingleOrDefault<Service>(query, new { name });
-                if (id != null)
-                {
-                    return id.Service_id;
-                }
-                return 0;
-
-            }
-        }
-        public decimal GetPriceByName(string name)
-        {
-            var query = "Select * from Service where name = @name";
-
-            using (var connection = _dapperContext.CreateConnection())
-            {
-                var service =  connection.QuerySingleOrDefault<Service>(query, new { name });
-                if(service != null)
-                {
-                    return service.Price;
-                }
-
-                return 0;
-            }
-        }
         public async Task<IEnumerable<Booking>> GetBookings()
         {
             var query = "SELECT * FROM Booking";
@@ -153,7 +79,7 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, new { id });
             }
         }
-        public async Task<IEnumerable<BookingCustomerList>> GetBookingsById(int id)
+        public async Task<IEnumerable<BookingCustomerList>> GetBookingsByCustomerId(int id)
         {
             var query = "Select Service.name,Booking.price,Booking.date from Booking Join BookingList On Booking.booking_id = BookingList.booking_id Join Service On BookingList.service_id = Service.service_id Join Customer On Booking.customer_id = Customer.customer_id Where Booking.customer_id = @id";
             using (var connection = _dapperContext.CreateConnection())

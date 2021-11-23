@@ -20,8 +20,9 @@ namespace CraftCutsTestApiProject.Models
         
         public string Email { get; set; }
         [Phone]
-        [Required]
+        [Required(ErrorMessage = "Введите телефон")]
         public string Phone { get; set; }
+        [Required(ErrorMessage = "Введите день рождения")]
         public DateTime Birthday { get; set; }
 
     }

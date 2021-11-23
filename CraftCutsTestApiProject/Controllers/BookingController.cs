@@ -14,26 +14,28 @@ namespace CraftCutsTestApiProject.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly IBookingListRepository _bookingListRepository;
-        public BookingController(IBookingRepository bookingRepository , IBookingListRepository bookingListRepository)
+        private readonly IIdGetterRepository _idGetterRepository;
+        
+        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository)
         {
             _bookingRepository = bookingRepository;
-            _bookingListRepository = bookingListRepository;
+            _idGetterRepository = idGetterRepository;
+            
         }
         [HttpPost]
         public async Task<IActionResult> CreateBooking(BookingConstructor bookingConstructor)
         {
             try
             {
-                int barber_id = _bookingRepository.GetBarberIdByName(bookingConstructor.BarberName);
+                int barber_id = await _idGetterRepository.GetBarberIdByName(bookingConstructor.BarberName);
 
-                int customer_id = _bookingRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
+                int customer_id = await _idGetterRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
                 
                 
-                int promocode_id = _bookingRepository.GetPromocodeIdByName(bookingConstructor.PromocodeName);
+                int promocode_id = await _idGetterRepository.GetPromocodeIdByName(bookingConstructor.PromocodeName);
 
-                decimal price = _bookingRepository.GetPriceByName(bookingConstructor.ServiceName);
-                int service_id = _bookingRepository.GetServiceIdByName(bookingConstructor.ServiceName);
+                decimal price = await _idGetterRepository.GetPriceByName(bookingConstructor.ServiceName);
+                int service_id = await _idGetterRepository.GetServiceIdByName(bookingConstructor.ServiceName);
                 
                 bool is_paid = false;
                 if(barber_id != 0 && customer_id != 0 && price != 0)
@@ -41,11 +43,11 @@ namespace CraftCutsTestApiProject.Controllers
 
                     if (promocode_id == 0)
                     {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.date, is_paid, null);
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
                     }
                     else
                     {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.date, is_paid, promocode_id);
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, promocode_id);
                     }
                     
 
@@ -135,7 +137,7 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                var bookings = await _bookingRepository.GetBookingsById(id);
+                var bookings = await _bookingRepository.GetBookingsByCustomerId(id);
                 return Ok(bookings);
             }
             catch (Exception ex)

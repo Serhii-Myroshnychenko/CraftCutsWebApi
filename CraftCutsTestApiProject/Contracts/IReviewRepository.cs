@@ -12,7 +12,7 @@ namespace CraftCutsTestApiProject.Contracts
         public Task<IEnumerable<ReviewSelector>> GetReviewSelectors();
         public Task<Review> GetReview(int id);
 
-        public Task CreateReview(ReviewConstructor reviewConstructor);
+        public Task CreateReview(Review review);
         public Task DeleteReview(int id);
 
     }

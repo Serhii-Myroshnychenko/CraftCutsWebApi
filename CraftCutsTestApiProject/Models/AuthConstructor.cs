@@ -8,9 +8,9 @@ namespace CraftCutsTestApiProject.Models
 {
     public class AuthConstructor
     {
-        [Required]
+        [Required(ErrorMessage = "Введите почту")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Введите пароль")]
         public string Password { get; set; }
 
     }

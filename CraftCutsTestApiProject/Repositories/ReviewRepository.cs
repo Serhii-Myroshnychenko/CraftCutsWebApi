@@ -19,13 +19,13 @@ namespace CraftCutsTestApiProject.Repositories
 
         }
 
-        public async Task CreateReview(ReviewConstructor reviewConstructor)
+        public async Task CreateReview(Review review)
         {
             var query = "INSERT INTO Review (customer_id,feedback,stars) VALUES (@customer_id,@feedback,@stars)";
             var parameters = new DynamicParameters();
-            parameters.Add("customer_id", reviewConstructor.Customer_id, DbType.Int64);
-            parameters.Add("feedback", reviewConstructor.Feedback, DbType.String);
-            parameters.Add("stars", reviewConstructor.Stars, DbType.Int64);
+            parameters.Add("customer_id", review.Customer_id, DbType.Int64);
+            parameters.Add("feedback", review.Feedback, DbType.String);
+            parameters.Add("stars", review.Stars, DbType.Int64);
             using (var connection = _dapperContext.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);

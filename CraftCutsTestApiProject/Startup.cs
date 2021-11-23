@@ -42,6 +42,8 @@ namespace CraftCutsTestApiProject
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IPromocodeRepository, PromocodeRepository>();
+            services.AddScoped<IIdGetterRepository, IdGetterRepository>();
+            services.AddScoped<IBarberRepository, BarberRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

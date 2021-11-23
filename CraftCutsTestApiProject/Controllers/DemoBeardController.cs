@@ -47,12 +47,12 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> AddHairCut([FromForm] DemoBeardConstructor demoBeardConstructor)
+        public async Task<IActionResult> AddHairCut([FromForm] DemoBeard demoBeard)
         {
             try
             {
 
-                await _demoBeardRepository.CreateDemoBeard(demoBeardConstructor.Image_name, demoBeardConstructor.Displayed_name);
+                await _demoBeardRepository.CreateDemoBeard(demoBeard.Image_name, demoBeard.Displayed_name);
                 return Ok("Успешно");
             }
             catch (Exception ex)

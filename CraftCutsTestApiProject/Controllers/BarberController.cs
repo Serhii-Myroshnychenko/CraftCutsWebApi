@@ -11,34 +11,20 @@ namespace CraftCutsTestApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewController : ControllerBase
+    public class BarberController : ControllerBase
     {
-        private readonly IReviewRepository _reviewRepository;
-
-        public ReviewController(IReviewRepository reviewRepository)
+        private readonly IBarberRepository _barberRepository;
+        public BarberController(IBarberRepository barberRepository)
         {
-            _reviewRepository = reviewRepository;
-        }
-        [HttpGet("Statistic")]
-        public async Task<IActionResult> GetStatistic()
-        {
-            try
-            {
-                var reviews = await _reviewRepository.GetReviewSelectors();
-                return Ok(reviews);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            _barberRepository = barberRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetReviews()
+        public async Task<IActionResult> GetBarbers()
         {
             try
             {
-                var reviews = await _reviewRepository.GetReviews();
-                return Ok(reviews);
+                var barbers = await _barberRepository.GetBarbers();
+                return Ok(barbers);
             }
             catch(Exception ex)
             {
@@ -46,18 +32,18 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetReview(int id)
+        public async Task<IActionResult> GetBarber(int id)
         {
             try
             {
-                var review = await _reviewRepository.GetReview(id);
-                if(review == null)
+                var barber = await _barberRepository.GetBarber(id);
+                if (barber != null)
                 {
-                    return NotFound();
+                    return Ok(barber);
                 }
                 else
                 {
-                    return Ok(review);
+                    return NotFound(); 
                 }
             }
             catch(Exception ex)
@@ -66,12 +52,13 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateReview([FromBody]Review review)
+        public async Task<IActionResult> CreateBarber([FromForm]Barber barber)
         {
             try
             {
-                await _reviewRepository.CreateReview(review);
+                await _barberRepository.CreateBarber(barber);
                 return Ok("Ok");
+
             }
             catch(Exception ex)
             {
@@ -79,11 +66,11 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReview(int id)
+        public async Task<IActionResult> DeleteBarber(int id)
         {
             try
             {
-                await _reviewRepository.DeleteReview(id);
+                await _barberRepository.DeleteBarber(id);
                 return Ok("Ok");
             }
             catch(Exception ex)
