@@ -52,6 +52,19 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPost("GetPrice")]
+        public async Task<IActionResult> GetPriceByName(string name)
+        {
+            try
+            {
+                decimal price = await _serviceRepository.GetServicePriceByName(name);
+                return Ok(price);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreateService(Service service)
         {

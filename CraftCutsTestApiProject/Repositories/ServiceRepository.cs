@@ -71,5 +71,19 @@ namespace CraftCutsTestApiProject.Repositories
                 await connection.ExecuteAsync(query, new { id });
             }
         }
+
+        public async Task<decimal> GetServicePriceByName(string name)
+        {
+            var query = "SELECT * FROM Service WHERE name = @name";
+            using (var connection = _context.CreateConnection())
+            {
+                var service = await connection.QuerySingleOrDefaultAsync<Service>(query, new { name });
+                if(service != null)
+                {
+                    return service.Price;
+                }
+                return 0;
+            }
+        }
     }
 }

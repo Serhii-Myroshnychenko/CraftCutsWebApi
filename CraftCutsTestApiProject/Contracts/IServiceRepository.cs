@@ -13,5 +13,6 @@ namespace CraftCutsTestApiProject.Contracts
         public Task CreateService(Service service);
         public Task UpdateService(int id, Service service);
         public Task DeleteService(int id);
+        public Task<decimal> GetServicePriceByName(string name);
     }
 }
