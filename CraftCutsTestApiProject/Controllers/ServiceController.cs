@@ -53,11 +53,11 @@ namespace CraftCutsTestApiProject.Controllers
             }
         }
         [HttpPost("GetPrice")]
-        public async Task<IActionResult> GetPriceByName(string name)
+        public async Task<IActionResult> GetPriceByName([FromBody]PriceGetter priceGetter)
         {
             try
             {
-                decimal price = await _serviceRepository.GetServicePriceByName(name);
+                decimal price = await _serviceRepository.GetServicePriceByName(priceGetter.Name);
                 return Ok(price);
             }
             catch(Exception ex)
