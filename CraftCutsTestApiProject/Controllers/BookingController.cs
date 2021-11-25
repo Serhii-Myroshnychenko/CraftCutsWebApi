@@ -69,6 +69,51 @@ namespace CraftCutsTestApiProject.Controllers
             }
 
         }
+        [HttpPost("Web")]
+        public async Task<IActionResult> CreateBookingWeb([FromBody]BookingConstructor bookingConstructor)
+        {
+            try
+            {
+                int barber_id = await _idGetterRepository.GetBarberIdByName(bookingConstructor.BarberName);
+
+                int customer_id = await _idGetterRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
+
+                var promo = await _promocodeRepository.GetPromocodeByName(bookingConstructor.PromocodeName);
+
+
+                decimal price = await _idGetterRepository.GetPriceByName(bookingConstructor.ServiceName);
+                if (promo != null)
+                {
+                    price = price - ((price / 100) * promo.Sale_percent);
+                }
+                int service_id = await _idGetterRepository.GetServiceIdByName(bookingConstructor.ServiceName);
+
+                bool is_paid = false;
+                if (barber_id != 0 && customer_id != 0 && price != 0)
+                {
+
+                    if (promo == null)
+                    {
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
+                    }
+                    else
+                    {
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
+                        await _promocodeRepository.DeletePromocode(promo.Promocode_id);
+                    }
+
+
+                    return Ok("Ok");
+
+                }
+                return BadRequest("Что-то пошло не так");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpGet]
         public async Task<IActionResult> GetBookings()
         {
