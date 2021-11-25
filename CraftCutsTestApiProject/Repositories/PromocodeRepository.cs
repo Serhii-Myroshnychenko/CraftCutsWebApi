@@ -36,6 +36,16 @@ namespace CraftCutsTestApiProject.Repositories
             }
         }
 
+        public async Task<Promocode> GetPromocodeByName(string name)
+        {
+            var query = "SELECT * FROM Promocode Where name = @name";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var promocode = await connection.QuerySingleOrDefaultAsync<Promocode>(query, new { name});
+                return promocode;
+            }
+        }
+
         public async Task<IEnumerable<Promocode>> GetPromocodes()
         {
             var query = "SELECT * FROM Promocode";

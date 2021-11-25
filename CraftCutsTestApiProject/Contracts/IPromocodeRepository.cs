@@ -11,6 +11,7 @@ namespace CraftCutsTestApiProject.Contracts
         public Task<IEnumerable<Promocode>> GetPromocodes();
         public Task<Promocode> GetPromocode(int id);
         public Task DeletePromocode(int id);
+        public Task<Promocode> GetPromocodeByName(string name);
         
     }
 }

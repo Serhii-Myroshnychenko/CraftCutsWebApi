@@ -15,11 +15,13 @@ namespace CraftCutsTestApiProject.Controllers
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly IIdGetterRepository _idGetterRepository;
+        private readonly IPromocodeRepository _promocodeRepository;
         
-        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository)
+        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository, IPromocodeRepository promocodeRepository)
         {
             _bookingRepository = bookingRepository;
             _idGetterRepository = idGetterRepository;
+            _promocodeRepository = promocodeRepository;
             
         }
         [HttpPost]
@@ -30,24 +32,29 @@ namespace CraftCutsTestApiProject.Controllers
                 int barber_id = await _idGetterRepository.GetBarberIdByName(bookingConstructor.BarberName);
 
                 int customer_id = await _idGetterRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
+
+                var promo = await _promocodeRepository.GetPromocodeByName(bookingConstructor.PromocodeName);
                 
-                
-                int promocode_id = await _idGetterRepository.GetPromocodeIdByName(bookingConstructor.PromocodeName);
 
                 decimal price = await _idGetterRepository.GetPriceByName(bookingConstructor.ServiceName);
+                if (promo != null)
+                {
+                    price = price - ((price / 100) * promo.Sale_percent);
+                }
                 int service_id = await _idGetterRepository.GetServiceIdByName(bookingConstructor.ServiceName);
                 
                 bool is_paid = false;
                 if(barber_id != 0 && customer_id != 0 && price != 0)
                 {
 
-                    if (promocode_id == 0)
+                    if (promo == null)
                     {
                         await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
                     }
                     else
                     {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, promocode_id);
+                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
+                        await _promocodeRepository.DeletePromocode(promo.Promocode_id);
                     }
                     
 
