@@ -8,6 +8,6 @@ namespace CraftCutsTestApiProject.Contracts
 {
     public interface IBookingListRepository
     {
-        public Task CreateBookingList(BookingList bookingList);
+        public Task CreateBookingList(int booking_id, int service_id);
     }
 }

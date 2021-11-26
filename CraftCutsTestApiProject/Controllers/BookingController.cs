@@ -16,12 +16,14 @@ namespace CraftCutsTestApiProject.Controllers
         private readonly IBookingRepository _bookingRepository;
         private readonly IIdGetterRepository _idGetterRepository;
         private readonly IPromocodeRepository _promocodeRepository;
+        private readonly IBookingListRepository _bookingListRepository;
         
-        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository, IPromocodeRepository promocodeRepository)
+        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository, IPromocodeRepository promocodeRepository, IBookingListRepository bookingListRepository)
         {
             _bookingRepository = bookingRepository;
             _idGetterRepository = idGetterRepository;
             _promocodeRepository = promocodeRepository;
+            _bookingListRepository = bookingListRepository;
             
         }
         [HttpPost]
@@ -50,11 +52,15 @@ namespace CraftCutsTestApiProject.Controllers
                     if (promo == null)
                     {
                         await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
+                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
+                        await _bookingListRepository.CreateBookingList(booking, service_id);
                     }
                     else
                     {
                         await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
                         await _promocodeRepository.DeletePromocode(promo.Promocode_id);
+                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
+                        await _bookingListRepository.CreateBookingList(booking,service_id);
                     }
                     
 
@@ -95,11 +101,15 @@ namespace CraftCutsTestApiProject.Controllers
                     if (promo == null)
                     {
                         await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
+                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
+                        await _bookingListRepository.CreateBookingList(booking, service_id);
                     }
                     else
                     {
                         await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
                         await _promocodeRepository.DeletePromocode(promo.Promocode_id);
+                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
+                        await _bookingListRepository.CreateBookingList(booking, service_id);
                     }
 
 

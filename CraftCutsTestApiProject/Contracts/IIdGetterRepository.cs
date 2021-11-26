@@ -12,5 +12,6 @@ namespace CraftCutsTestApiProject.Contracts
         public Task<int> GetPromocodeIdByName(string name);
         public Task<decimal> GetPriceByName(string name);
         public Task<int> GetServiceIdByName(string name);
+        public Task<int> GetBookingIdByParams(int barber_id,int customer_id,decimal price,DateTime date);
     }
 }

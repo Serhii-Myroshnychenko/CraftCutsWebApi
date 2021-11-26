@@ -4,6 +4,7 @@ using CraftCutsTestApiProject.Models;
 using Dapper; 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -87,6 +88,28 @@ namespace CraftCutsTestApiProject.Repositories
                 if (service != null)
                 {
                     return service.Price;
+                }
+
+                return 0;
+            }
+        }
+
+        public async Task<int> GetBookingIdByParams(int barber_id, int customer_id, decimal price, DateTime date)
+        {
+            var query = "Select * from Booking where barber_id = @barber_id and customer_id = @customer_id and price = @price and date = @date";
+            var parameters = new DynamicParameters();
+            parameters.Add("barber_id", barber_id, DbType.Int64);
+            parameters.Add("customer_id", customer_id, DbType.Int64);
+            parameters.Add("price", price, DbType.Decimal);
+            parameters.Add("date", date, DbType.DateTime);
+           
+
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var booking = await connection.QuerySingleOrDefaultAsync<Booking>(query, parameters);
+                if (booking != null)
+                {
+                    return booking.Booking_id;
                 }
 
                 return 0;
