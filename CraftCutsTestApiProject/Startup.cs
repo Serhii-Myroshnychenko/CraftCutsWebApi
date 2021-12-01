@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using CraftCutsTestApiProject.Contracts;
 using CraftCutsTestApiProject.Repositories;
 using Microsoft.AspNetCore.SignalR;
+using CraftCutsTestApiProject.Logic;
 
 namespace CraftCutsTestApiProject
 {
@@ -44,6 +45,7 @@ namespace CraftCutsTestApiProject
             services.AddScoped<IPromocodeRepository, PromocodeRepository>();
             services.AddScoped<IIdGetterRepository, IdGetterRepository>();
             services.AddScoped<IBarberRepository, BarberRepository>();
+            services.AddScoped<IBookingLogic, BookingLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

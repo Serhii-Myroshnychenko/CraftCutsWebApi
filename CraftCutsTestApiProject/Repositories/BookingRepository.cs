@@ -13,9 +13,12 @@ namespace CraftCutsTestApiProject.Repositories
     public class BookingRepository : IBookingRepository
     {
         private readonly DapperContext _dapperContext;
+        
+
         public BookingRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+            
         }
         public async Task CreateBooking(int barber_id,int customer_id,decimal price,DateTime date,bool is_paid,int? promocode_id)
         {
@@ -88,6 +91,7 @@ namespace CraftCutsTestApiProject.Repositories
                 return bookings.ToList();
             }
         }
+        
 
     }
 }

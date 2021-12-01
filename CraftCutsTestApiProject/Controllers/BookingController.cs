@@ -1,4 +1,5 @@
 ﻿using CraftCutsTestApiProject.Contracts;
+using CraftCutsTestApiProject.Logic;
 using CraftCutsTestApiProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +15,13 @@ namespace CraftCutsTestApiProject.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly IIdGetterRepository _idGetterRepository;
-        private readonly IPromocodeRepository _promocodeRepository;
-        private readonly IBookingListRepository _bookingListRepository;
+        private readonly IBookingLogic _bookingLogic;
         
-        public BookingController(IBookingRepository bookingRepository , IIdGetterRepository idGetterRepository, IPromocodeRepository promocodeRepository, IBookingListRepository bookingListRepository)
+        
+        public BookingController(IBookingRepository bookingRepository, IBookingLogic bookingLogic)
         {
             _bookingRepository = bookingRepository;
-            _idGetterRepository = idGetterRepository;
-            _promocodeRepository = promocodeRepository;
-            _bookingListRepository = bookingListRepository;
+            _bookingLogic = bookingLogic;
             
         }
         [HttpPost]
@@ -31,43 +29,12 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                int barber_id = await _idGetterRepository.GetBarberIdByName(bookingConstructor.BarberName);
-
-                int customer_id = await _idGetterRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
-
-                var promo = await _promocodeRepository.GetPromocodeByName(bookingConstructor.PromocodeName);
-                
-
-                decimal price = await _idGetterRepository.GetPriceByName(bookingConstructor.ServiceName);
-                if (promo != null)
+                var answer = await _bookingLogic.CreateBookingLogic(bookingConstructor);
+                if (answer == "Ok")
                 {
-                    price = price - ((price / 100) * promo.Sale_percent);
+                    return Ok(answer);
                 }
-                int service_id = await _idGetterRepository.GetServiceIdByName(bookingConstructor.ServiceName);
-                
-                bool is_paid = false;
-                if(barber_id != 0 && customer_id != 0 && price != 0)
-                {
-
-                    if (promo == null)
-                    {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
-                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
-                        await _bookingListRepository.CreateBookingList(booking, service_id);
-                    }
-                    else
-                    {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
-                        await _promocodeRepository.DeletePromocode(promo.Promocode_id);
-                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
-                        await _bookingListRepository.CreateBookingList(booking,service_id);
-                    }
-                    
-
-                    return Ok("Ok");
-
-                }
-                return BadRequest("Что-то пошло не так");
+                return BadRequest(answer);
             }
             catch(Exception ex)
             {
@@ -80,43 +47,13 @@ namespace CraftCutsTestApiProject.Controllers
         {
             try
             {
-                int barber_id = await _idGetterRepository.GetBarberIdByName(bookingConstructor.BarberName);
-
-                int customer_id = await _idGetterRepository.GetCustomerIdByName(bookingConstructor.CustomerEmail);
-
-                var promo = await _promocodeRepository.GetPromocodeByName(bookingConstructor.PromocodeName);
-
-
-                decimal price = await _idGetterRepository.GetPriceByName(bookingConstructor.ServiceName);
-                if (promo != null)
+               var answer = await _bookingLogic.CreateBookingLogic(bookingConstructor);
+                if(answer == "Ok")
                 {
-                    price = price - ((price / 100) * promo.Sale_percent);
+                    return Ok(answer);
                 }
-                int service_id = await _idGetterRepository.GetServiceIdByName(bookingConstructor.ServiceName);
-
-                bool is_paid = false;
-                if (barber_id != 0 && customer_id != 0 && price != 0)
-                {
-
-                    if (promo == null)
-                    {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
-                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
-                        await _bookingListRepository.CreateBookingList(booking, service_id);
-                    }
-                    else
-                    {
-                        await _bookingRepository.CreateBooking(barber_id, customer_id, price, bookingConstructor.Date, is_paid, null);
-                        await _promocodeRepository.DeletePromocode(promo.Promocode_id);
-                        int booking = await _idGetterRepository.GetBookingIdByParams(barber_id, customer_id, price, bookingConstructor.Date);
-                        await _bookingListRepository.CreateBookingList(booking, service_id);
-                    }
-
-
-                    return Ok("Ok");
-
-                }
-                return BadRequest("Что-то пошло не так");
+                return BadRequest(answer);
+                
             }
             catch (Exception ex)
             {
