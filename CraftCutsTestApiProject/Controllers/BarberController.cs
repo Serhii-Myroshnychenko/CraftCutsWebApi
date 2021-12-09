@@ -14,9 +14,11 @@ namespace CraftCutsTestApiProject.Controllers
     public class BarberController : ControllerBase
     {
         private readonly IBarberRepository _barberRepository;
-        public BarberController(IBarberRepository barberRepository)
+        private readonly IIdGetterRepository _idGetterRepository;
+        public BarberController(IBarberRepository barberRepository, IIdGetterRepository idGetterRepository)
         {
             _barberRepository = barberRepository;
+            _idGetterRepository = idGetterRepository;
         }
         [HttpGet]
         public async Task<IActionResult> GetBarbers()
@@ -25,6 +27,23 @@ namespace CraftCutsTestApiProject.Controllers
             {
                 var barbers = await _barberRepository.GetBarbers();
                 return Ok(barbers);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost("BarberId")]
+        public async Task<IActionResult> GetBarberIdByNameAsync([FromBody] BarberParams barberParams)
+        {
+            try
+            {
+                var id = await _idGetterRepository.GetBarberIdByName(barberParams.Name);
+                if (id != 0)
+                {
+                    return Ok(id);
+                }
+                return NotFound("Такого барбера не существует");
             }
             catch(Exception ex)
             {

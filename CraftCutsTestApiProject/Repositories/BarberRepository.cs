@@ -62,5 +62,6 @@ namespace CraftCutsTestApiProject.Repositories
                 return barbers.ToList();
             }
         }
+        
     }
 }
