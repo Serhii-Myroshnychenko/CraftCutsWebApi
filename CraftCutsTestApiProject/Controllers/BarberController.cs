@@ -97,5 +97,18 @@ namespace CraftCutsTestApiProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPost("Auth")]
+        public async Task<IActionResult> Authorization([FromForm] AuthConstructor authConstructor)
+        {
+            try
+            {
+                var barber = await _barberRepository.Authorization(authConstructor);
+                return Ok(barber);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

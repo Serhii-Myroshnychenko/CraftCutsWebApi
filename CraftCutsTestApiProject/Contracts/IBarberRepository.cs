@@ -12,6 +12,6 @@ namespace CraftCutsTestApiProject.Contracts
         public Task<Barber> GetBarber(int id);
         public Task CreateBarber(Barber barber);
         public Task DeleteBarber(int id);
-
+        public Task<Barber> Authorization(AuthConstructor authConstructor);
     }
 }

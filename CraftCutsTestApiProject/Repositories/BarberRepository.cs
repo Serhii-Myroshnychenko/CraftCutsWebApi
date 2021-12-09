@@ -62,6 +62,18 @@ namespace CraftCutsTestApiProject.Repositories
                 return barbers.ToList();
             }
         }
-        
+        public async Task<Barber> Authorization(AuthConstructor authConstructor)
+        {
+            var query = "SELECT * FROM Barber WHERE password = @password AND email = @email";
+            var parameters = new DynamicParameters();
+            parameters.Add("password", authConstructor.Password, DbType.String);
+            parameters.Add("email", authConstructor.Email, DbType.String);
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var barber = await connection.QuerySingleOrDefaultAsync<Barber>(query, parameters);
+                return barber;
+            }
+        }
+
     }
 }
